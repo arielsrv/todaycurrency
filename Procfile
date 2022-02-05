@@ -1,0 +1,1 @@
+web: java -javaagent:newrelic/newrelic.jar -jar -Dserver.port=$PORT $JAVA_OPTS build/libs/todaycurrency-1.0-SNAPSHOT-all.jar
