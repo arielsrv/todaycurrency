@@ -40,7 +40,7 @@ dependencies {
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.1.2'
     implementation 'com.netflix.archaius:archaius-core:0.7.7'
     implementation 'commons-configuration:commons-configuration:1.10'
-    implementation 'org.apache.curator:curator-framework:5.1.0'
+    implementation 'org.apache.curator:curator-framework:5.2.0'
     implementation 'org.apache.httpcomponents.client5:httpclient5-fluent:5.1.2'
     testImplementation "org.mockito:mockito-core:4.3.1"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
