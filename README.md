@@ -1,4 +1,5 @@
 # todaycurrency
+
 ## running
 
     ./gradlew run

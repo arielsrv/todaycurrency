@@ -15,20 +15,20 @@ import static java.lang.String.format;
 
 public class SparkWebServer {
 
-    private static final Logger logger = LogManager.getLogger(SparkWebServer.class);
+	private static final Logger logger = LogManager.getLogger(SparkWebServer.class);
 
-    public static void run(int serverPort, Class<Application> applicationClass) throws Exception {
+	public static void run(int serverPort, Class<Application> applicationClass) throws Exception {
 
-        Server server = new Server(serverPort);
-        ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.NO_SESSIONS);
-        context.setContextPath("/");
+		Server server = new Server(serverPort);
+		ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.NO_SESSIONS);
+		context.setContextPath("/");
 
-        FilterHolder filterHolder = new FilterHolder(SparkFilter.class);
-        filterHolder.setInitParameter("applicationClass", applicationClass.getName());
-        context.addFilter(filterHolder, "/*", EnumSet.of(DispatcherType.REQUEST));
+		FilterHolder filterHolder = new FilterHolder(SparkFilter.class);
+		filterHolder.setInitParameter("applicationClass", applicationClass.getName());
+		context.addFilter(filterHolder, "/*", EnumSet.of(DispatcherType.REQUEST));
 
-        server.start();
-        logger.info(format("Listening on %d ...", serverPort));
-        server.join();
-    }
+		server.start();
+		logger.info(format("Listening on %d ...", serverPort));
+		server.join();
+	}
 }

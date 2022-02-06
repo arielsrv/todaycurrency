@@ -24,77 +24,78 @@ import static java.util.Arrays.stream;
 @Singleton
 public class ApiHandler {
 
-    private final Logger logger = LogManager.getLogger(this.getClass());
-    private final Set<Class<?>> controllers;
-    private final Injector injector;
-    private final ObjectMapper objectMapper;
+	private final Logger logger = LogManager.getLogger(this.getClass());
+	private final Set<Class<?>> controllers;
+	private final Injector injector;
+	private final ObjectMapper objectMapper;
 
-    public ApiHandler() throws IOException {
-        this.controllers = getControllers();
-        this.injector = Guice.createInjector(new AppModule(this.controllers));
-        this.objectMapper = this.injector.getInstance(ObjectMapper.class);
-    }
+	public ApiHandler() throws IOException {
+		this.controllers = getControllers();
+		this.injector = Guice.createInjector(new AppModule(this.controllers));
+		this.objectMapper = this.injector.getInstance(ObjectMapper.class);
+	}
 
-    private Set<Class<?>> getControllers() throws IOException {
-        return ClassPath.from(ClassLoader.getSystemClassLoader())
-                .getAllClasses()
-                .stream()
-                .filter(clazz -> clazz.getSimpleName().toLowerCase().contains("controller"))
-                .map(ClassPath.ClassInfo::load)
-                .filter(clazz -> clazz.getSuperclass().getSimpleName().equals("ApiController"))
-                .collect(Collectors.toSet());
-    }
+	private Set<Class<?>> getControllers() throws IOException {
+		Set<Class<?>> result = ClassPath.from(ClassLoader.getSystemClassLoader())
+			.getTopLevelClasses("com.todaycurrency.controllers")
+			.stream()
+			.map(ClassPath.ClassInfo::load)
+			.filter(clazz -> clazz.getSuperclass().getName().equals("com.todaycurrency.common.ApiController"))
+			.collect(Collectors.toSet());
 
-    public void get(String path, String controller, String action) {
-        this.logger.info("GET \t" + path);
-        Spark.get(path, (request, response) -> getResult(controller, action, request));
-    }
+		return result;
+	}
 
-    private String getResult(String controller, String action, Request request) throws Exception {
-        Object result = this.invoke(controller, action, request).blockingFirst();
-        return objectMapper.writeValueAsString(result);
-    }
+	public void get(String path, String controller, String action) {
+		this.logger.info("GET \t" + path);
+		Spark.get(path, (request, response) -> getResult(controller, action, request));
+	}
 
-    private Observable<Object> invoke(String controllerName, String actionName, Request request) throws Exception {
+	private String getResult(String controller, String action, Request request) throws Exception {
+		Object result = this.invoke(controller, action, request).blockingFirst();
+		return objectMapper.writeValueAsString(result);
+	}
 
-        Optional<Class<?>> apiController = getApiController(controllerName);
-        Optional<Method> apiAction = getApiAction(actionName, apiController);
-        Map<String, String> requestParams = getRequestParams(request);
+	private Observable<Object> invoke(String controllerName, String actionName, Request request) throws Exception {
 
-        return (Observable) apiAction.get()
-                .invoke(injector.getInstance(apiController.get()), new Context(requestParams));
-    }
+		Optional<Class<?>> apiController = getApiController(controllerName);
+		Optional<Method> apiAction = getApiAction(actionName, apiController);
+		Map<String, String> requestParams = getRequestParams(request);
 
-    private Map<String, String> getRequestParams(Request request) {
+		return (Observable) apiAction.get()
+			.invoke(injector.getInstance(apiController.get()), new Context(requestParams));
+	}
 
-        Map<String, String> params = request.queryParams().stream()
-                .collect(Collectors.toMap(param -> param.replace(":", ""), request::queryParams));
+	private Map<String, String> getRequestParams(Request request) {
 
-        request.params().keySet()
-                .forEach(key -> params.put(key.replace(":", ""), request.params().get(key)));
+		Map<String, String> params = request.queryParams().stream()
+			.collect(Collectors.toMap(param -> param.replace(":", ""), request::queryParams));
 
-        return params;
-    }
+		request.params().keySet()
+			.forEach(key -> params.put(key.replace(":", ""), request.params().get(key)));
 
-    private Optional<Method> getApiAction(String actionName, Optional<Class<?>> apiController) throws Exception {
-        Optional<Method> apiAction = stream(apiController.get().getDeclaredMethods())
-                .filter(method -> actionName.equalsIgnoreCase(method.getName()))
-                .findFirst();
+		return params;
+	}
 
-        if (!apiAction.isPresent()) {
-            throw new Exception();
-        }
-        return apiAction;
-    }
+	private Optional<Method> getApiAction(String actionName, Optional<Class<?>> apiController) throws Exception {
+		Optional<Method> apiAction = stream(apiController.get().getDeclaredMethods())
+			.filter(method -> actionName.equalsIgnoreCase(method.getName()))
+			.findFirst();
 
-    private Optional<Class<?>> getApiController(String controllerName) throws Exception {
-        Optional<Class<?>> apiController = this.controllers.stream()
-                .filter(controller -> controllerName.equalsIgnoreCase(controller.getSimpleName()))
-                .findFirst();
+		if (!apiAction.isPresent()) {
+			throw new Exception();
+		}
+		return apiAction;
+	}
 
-        if (!apiController.isPresent()) {
-            throw new Exception();
-        }
-        return apiController;
-    }
+	private Optional<Class<?>> getApiController(String controllerName) throws Exception {
+		Optional<Class<?>> apiController = this.controllers.stream()
+			.filter(controller -> controllerName.equalsIgnoreCase(controller.getSimpleName()))
+			.findFirst();
+
+		if (!apiController.isPresent()) {
+			throw new Exception();
+		}
+		return apiController;
+	}
 }

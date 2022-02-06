@@ -35,16 +35,16 @@ public class CurrencyControllerTest {
 
 		assertNotNull(currencyDto);
 		assertEquals("USD", currencyDto.id);
-		assertEquals("100.00", currencyDto.buy);
-		assertEquals("102.00", currencyDto.sell);
+		assertEquals(100.0, currencyDto.buy);
+		assertEquals(102.0, currencyDto.sell);
 	}
 
 	private Observable<CurrencyDto> getCurrencyDto() {
 		CurrencyDto currencyDto = new CurrencyDto();
 
 		currencyDto.id = "USD";
-		currencyDto.buy = "100.00";
-		currencyDto.sell = "102.00";
+		currencyDto.buy = 100.0;
+		currencyDto.sell = 102.0;
 
 		return Observable.just(currencyDto);
 	}
