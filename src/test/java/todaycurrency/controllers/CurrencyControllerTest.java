@@ -1,6 +1,6 @@
 package todaycurrency.controllers;
 
-import com.todaycurrency.common.Context;
+import com.sdk.Context;
 import com.todaycurrency.controllers.CurrencyController;
 import com.todaycurrency.model.CurrencyDto;
 import com.todaycurrency.services.CurrencyService;

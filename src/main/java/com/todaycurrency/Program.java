@@ -1,6 +1,6 @@
 package com.todaycurrency;
 
-import com.todaycurrency.common.SparkWebServer;
+import com.sdk.SparkWebServer;
 
 import static java.lang.System.getProperty;
 

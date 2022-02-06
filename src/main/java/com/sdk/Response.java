@@ -1,4 +1,4 @@
-package com.todaycurrency.common;
+package com.sdk;
 
 public class Response<T> {
 	T data;

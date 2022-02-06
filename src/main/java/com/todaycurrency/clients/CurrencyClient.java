@@ -3,9 +3,9 @@ package com.todaycurrency.clients;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.todaycurrency.common.Client;
-import com.todaycurrency.common.Response;
-import com.todaycurrency.common.RestClient;
+import com.sdk.Client;
+import com.sdk.Response;
+import com.sdk.RestClient;
 import io.reactivex.rxjava3.core.Observable;
 
 @Singleton

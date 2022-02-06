@@ -1,4 +1,4 @@
-package com.todaycurrency.common;
+package com.sdk;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.reflect.ClassPath;
@@ -40,7 +40,7 @@ public class ApiHandler {
 			.getTopLevelClasses("com.todaycurrency.controllers")
 			.stream()
 			.map(ClassPath.ClassInfo::load)
-			.filter(clazz -> clazz.getSuperclass().getName().equals("com.todaycurrency.common.ApiController"))
+			.filter(clazz -> clazz.getSuperclass().getName().equals("com.sdk.ApiController"))
 			.collect(Collectors.toSet());
 
 		return result;

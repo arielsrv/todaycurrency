@@ -1,4 +1,4 @@
-package com.todaycurrency.common;
+package com.sdk;
 
 import com.todaycurrency.Application;
 import org.apache.log4j.LogManager;

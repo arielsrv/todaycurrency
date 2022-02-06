@@ -1,4 +1,4 @@
-package com.todaycurrency.common;
+package com.sdk;
 
 import com.google.inject.Singleton;
 import spark.servlet.SparkApplication;

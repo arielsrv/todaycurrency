@@ -1,4 +1,4 @@
-package com.todaycurrency.common;
+package com.sdk;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

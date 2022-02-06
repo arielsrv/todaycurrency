@@ -1,4 +1,4 @@
-package com.todaycurrency.common;
+package com.sdk;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;

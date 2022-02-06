@@ -1,4 +1,4 @@
-package com.todaycurrency.common;
+package com.sdk;
 
 import java.util.regex.Matcher;
 

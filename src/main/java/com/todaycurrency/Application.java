@@ -1,6 +1,6 @@
 package com.todaycurrency;
 
-import com.todaycurrency.common.ApiApplication;
+import com.sdk.ApiApplication;
 
 public class Application extends ApiApplication {
 
