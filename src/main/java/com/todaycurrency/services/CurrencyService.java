@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Observable;
 public class CurrencyService {
 
 	@Inject
-	CurrencyClient currencyClient;
+	public CurrencyClient currencyClient;
 
 	public Observable<CurrencyDto> getCurrency() {
 		return this.currencyClient.getLatest().map(currencyResponse -> {
