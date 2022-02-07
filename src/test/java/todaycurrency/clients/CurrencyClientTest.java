@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,19 +18,17 @@ public class CurrencyClientTest {
 
 	private RestClient restClient;
 	private CurrencyClient currencyClient;
-	private Response response;
 
 	@BeforeEach
 	public void setUp() {
 		this.restClient = mock(RestClient.class);
 		this.currencyClient = new CurrencyClient(this.restClient);
-		this.response = mock(Response.class);
 	}
 
 	@Test
 	public void get_currency() {
-		when(response.getData()).thenReturn(getResponse());
-		when(this.restClient.get(any(), any())).thenReturn(Observable.just(response));
+		when(this.restClient.get(eq("https://api.bluelytics.com.ar/v2/latest"), eq(CurrencyResponse.class)))
+			.thenReturn(getCurrencyResponse());
 
 		CurrencyResponse currencyResponse = this.currencyClient.getLatest().blockingFirst();
 
@@ -40,13 +38,14 @@ public class CurrencyClientTest {
 		assertEquals(100.0, currencyResponse.oficial.value_sell);
 	}
 
-	private CurrencyResponse getResponse() {
-		CurrencyResponse currencyResponse = new CurrencyResponse();
+	private Observable<Response<CurrencyResponse>> getCurrencyResponse() {
 
-		currencyResponse.oficial = new CurrencyResponse.Oficial();
-		currencyResponse.oficial.value_buy = 100.0;
-		currencyResponse.oficial.value_sell = 100.0;
+		Response<CurrencyResponse> response = new Response<>();
+		response.data = new CurrencyResponse();
+		response.data.oficial = new CurrencyResponse.Oficial();
+		response.data.oficial.value_buy = 100.0;
+		response.data.oficial.value_sell = 100.0;
 
-		return currencyResponse;
+		return Observable.just(response);
 	}
 }
