@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,16 +47,5 @@ public class CurrencyClientTest {
 		currencyResponse.oficial.value_sell = 100.0;
 
 		return currencyResponse;
-	}
-
-	private Observable<Response<CurrencyResponse>> getCurrencyResponse() {
-		Response<CurrencyResponse> response = new Response<>();
-
-		response.data = new CurrencyResponse();
-		response.data.oficial = new CurrencyResponse.Oficial();
-		response.data.oficial.value_buy = 100.0;
-		response.data.oficial.value_sell = 100.0;
-
-		return Observable.just(response);
 	}
 }
