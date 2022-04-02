@@ -3,8 +3,10 @@ package sdk;
 import com.sdk.ApiHandler;
 import com.todaycurrency.controllers.CurrencyController;
 import com.todaycurrency.model.CurrencyDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spark.Request;
+
 import java.io.IOException;
 import java.util.Set;
 
@@ -12,6 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class ApiHandlerTest {
+
+	private Request request;
+
+	@BeforeEach
+	public void setUp() {
+		this.request = mock(Request.class);
+	}
 
 	@Test
 	public void get_controllers() throws IOException {
@@ -24,7 +33,7 @@ public class ApiHandlerTest {
 	@Test
 	public void get_result() throws Exception {
 		ApiHandler apiHandler = new ApiHandler();
-		Object actual = apiHandler.invoke("currencyController", "getCurrency", mock(Request.class)).blockingFirst();
+		Object actual = apiHandler.invoke("currencyController", "getCurrency", request).blockingFirst();
 		assertNotNull(actual);
 		assertInstanceOf(CurrencyDto.class, actual);
 	}
@@ -33,7 +42,7 @@ public class ApiHandlerTest {
 	public void get_invalid_result() throws Exception {
 		ApiHandler apiHandler = new ApiHandler();
 		assertThrows(Exception.class, () -> {
-			apiHandler.invoke("anotherController", "getCurrency", mock(Request.class)).blockingFirst();
+			apiHandler.invoke("anotherController", "getCurrency", request).blockingFirst();
 		});
 	}
 }
