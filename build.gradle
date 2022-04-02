@@ -72,8 +72,8 @@ jacocoTestReport { // ./gradlew test jacocoTestReport from CLI
     dependsOn test // tests are required to run before generating the report
     group = "Reporting"
     reports {
-        xml.enabled true // needed for coverage
-        csv.enabled true
+        xml.required // needed for coverage
+        csv.required
         html.destination file("${buildDir}/reports/coverage")
     }
 
