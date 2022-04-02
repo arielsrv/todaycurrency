@@ -73,7 +73,7 @@ jacocoTestReport { // ./gradlew test jacocoTestReport from CLI
     group = "Reporting"
     reports {
         xml.required // needed for coverage
-        csv.required
+        csv.enabled true
         html.destination file("${buildDir}/reports/coverage")
     }
 
