@@ -40,12 +40,9 @@ public class AppModule extends AbstractModule {
 
 	private void bindRestClients() {
 		List<String> poolNames = this.getNamesInKeys("rest.client", REST_CLIENT_PATTERN);
-		poolNames.forEach(poolName -> {
-			bind(RestClient.class)
-				.annotatedWith(Names.named(poolName))
-				.to(RestClient.class)
-				.in(Scopes.SINGLETON);
-		});
+		poolNames.forEach(poolName -> bind(RestClient.class)
+			.annotatedWith(Names.named(poolName))
+			.to(RestClient.class));
 	}
 
 	private void bindControllers() {

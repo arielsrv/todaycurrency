@@ -24,21 +24,17 @@ public class RestClientTest {
 	public void simple_http_request_error() {
 		RestClient restClient = new RestClient();
 
-		assertThrows(RuntimeException.class, () -> {
-			restClient.get("https://notfound.resource", CurrencyResponse.class)
-				.map(Response::getData)
-				.blockingFirst();
-		});
+		assertThrows(RuntimeException.class, () -> restClient.get("https://notfound.resource", CurrencyResponse.class)
+			.map(Response::getData)
+			.blockingFirst());
 	}
 
 	@Test
 	public void simple_http_request_parsing() {
 		RestClient restClient = new RestClient();
 
-		assertThrows(RuntimeException.class, () -> {
-			restClient.get("https://api.bluelytics.com.ar/v2/latest", String.class)
-				.map(Response::getData)
-				.blockingFirst();
-		});
+		assertThrows(RuntimeException.class, () -> restClient.get("https://api.bluelytics.com.ar/v2/latest", String.class)
+			.map(Response::getData)
+			.blockingFirst());
 	}
 }

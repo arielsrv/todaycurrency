@@ -21,7 +21,7 @@ public class RegexHelperTest {
 	@Test
 	public void match_ok() {
 		String actual = RegexHelper.getString(pattern.matcher("rest.client.currency.pool.name"), 1);
-		assertTrue(!Strings.isNullOrEmpty(actual));
+		assertFalse(Strings.isNullOrEmpty(actual));
 	}
 
 	@Test

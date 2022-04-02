@@ -81,7 +81,7 @@ public class ApiHandler {
 			.filter(method -> actionName.equalsIgnoreCase(method.getName()))
 			.findFirst();
 
-		if (!apiAction.isPresent()) {
+		if (apiAction.isEmpty()) {
 			throw new Exception();
 		}
 		return apiAction;
@@ -92,7 +92,7 @@ public class ApiHandler {
 			.filter(controller -> controllerName.equalsIgnoreCase(controller.getSimpleName()))
 			.findFirst();
 
-		if (!apiController.isPresent()) {
+		if (apiController.isEmpty()) {
 			throw new Exception();
 		}
 		return apiController;
