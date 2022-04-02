@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 
-@SuppressWarnings("UnstableApiUsage")
 @Singleton
 public class ApiHandler {
 
@@ -56,7 +55,7 @@ public class ApiHandler {
 		return objectMapper.writeValueAsString(result);
 	}
 
-	private Observable<Object> invoke(String controllerName, String actionName, Request request) throws Exception {
+	private Observable invoke(String controllerName, String actionName, Request request) throws Exception {
 
 		Optional<Class<?>> apiController = getApiController(controllerName);
 		Optional<Method> apiAction = getApiAction(actionName, apiController);
