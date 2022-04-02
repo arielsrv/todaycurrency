@@ -14,8 +14,6 @@ import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBu
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
 import org.apache.hc.core5.concurrent.FutureCallback;
-import org.apache.hc.core5.function.Factory;
-import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.Method;
 import org.apache.hc.core5.http.message.StatusLine;
 import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
@@ -26,8 +24,6 @@ import org.apache.hc.core5.util.Timeout;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import javax.net.ssl.SSLEngine;
-import javax.net.ssl.SSLSession;
 import java.net.URI;
 import java.util.concurrent.Future;
 
