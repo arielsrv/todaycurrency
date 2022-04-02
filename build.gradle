@@ -81,7 +81,8 @@ jacocoTestReport { // ./gradlew test jacocoTestReport from CLI
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     '**/todaycurrency/Program.*',
-                    '**/todaycurrency/Application.*'
+                    '**/todaycurrency/Application.*',
+                    '**/sdk/ObjectMapperProvider.*'
             ])
         }))
     }
