@@ -1,7 +1,6 @@
 package com.sdk;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 import com.netflix.config.ConfigurationManager;
 
