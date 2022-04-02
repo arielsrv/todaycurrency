@@ -34,7 +34,7 @@ public class ApiHandler {
 		this.objectMapper = this.injector.getInstance(ObjectMapper.class);
 	}
 
-	private Set<Class<?>> getControllers() throws IOException {
+	public Set<Class<?>> getControllers() throws IOException {
 		Set<Class<?>> result = ClassPath.from(ClassLoader.getSystemClassLoader())
 			.getTopLevelClasses("com.todaycurrency.controllers")
 			.stream()
@@ -50,12 +50,12 @@ public class ApiHandler {
 		Spark.get(path, (request, response) -> getResult(controller, action, request));
 	}
 
-	private String getResult(String controller, String action, Request request) throws Exception {
+	public String getResult(String controller, String action, Request request) throws Exception {
 		Object result = this.invoke(controller, action, request).blockingFirst();
 		return objectMapper.writeValueAsString(result);
 	}
 
-	private Observable invoke(String controllerName, String actionName, Request request) throws Exception {
+	public Observable invoke(String controllerName, String actionName, Request request) throws Exception {
 
 		Optional<Class<?>> apiController = getApiController(controllerName);
 		Optional<Method> apiAction = getApiAction(actionName, apiController);
