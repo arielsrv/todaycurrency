@@ -6,20 +6,28 @@ import com.google.inject.Singleton;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
-import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
-import org.apache.hc.client5.http.async.methods.SimpleRequestProducer;
-import org.apache.hc.client5.http.async.methods.SimpleResponseConsumer;
+import org.apache.hc.client5.http.async.methods.*;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
 import org.apache.hc.core5.concurrent.FutureCallback;
+import org.apache.hc.core5.function.Factory;
+import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.Method;
 import org.apache.hc.core5.http.message.StatusLine;
+import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
+import org.apache.hc.core5.http2.HttpVersionPolicy;
 import org.apache.hc.core5.reactor.IOReactorConfig;
+import org.apache.hc.core5.reactor.ssl.TlsDetails;
 import org.apache.hc.core5.util.Timeout;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLSession;
 import java.net.URI;
 import java.util.concurrent.Future;
 
@@ -27,11 +35,24 @@ import java.util.concurrent.Future;
 public class RestClient {
 
 	final IOReactorConfig ioReactorConfig = IOReactorConfig.custom()
-		.setSoTimeout(Timeout.ofSeconds(10))
+		.setSoTimeout(Timeout.ofMilliseconds(2000))
 		.build();
+
+	final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
+		.useSystemProperties()
+		.setTlsDetailsFactory(sslEngine -> new TlsDetails(sslEngine.getSession(), sslEngine.getApplicationProtocol()))
+		.build();
+
+	final PoolingAsyncClientConnectionManager poolingAsyncClientConnectionManager = PoolingAsyncClientConnectionManagerBuilder.create()
+		.setTlsStrategy(tlsStrategy)
+		.build();
+
 	final CloseableHttpAsyncClient client = HttpAsyncClients.custom()
 		.setIOReactorConfig(ioReactorConfig)
+		.setVersionPolicy(HttpVersionPolicy.NEGOTIATE)
+		.setConnectionManager(poolingAsyncClientConnectionManager)
 		.build();
+
 	private final Logger logger = LogManager.getLogger(this.getClass());
 	private final ObjectMapper objectMapper;
 
@@ -42,14 +63,15 @@ public class RestClient {
 	}
 
 	public <T> Observable<Response<T>> get(String url, Class<T> clazz) {
-
+		client.start();
+		final HttpClientContext clientContext = HttpClientContext.create();
 		try {
-			client.start();
 			SimpleHttpRequest request = new SimpleHttpRequest(Method.GET, new URI(url));
 			final Future<SimpleHttpResponse> future = client.execute(
 				SimpleRequestProducer.create(request),
 				SimpleResponseConsumer.create(),
-				new FutureCallback<SimpleHttpResponse>() {
+				clientContext,
+				new FutureCallback<>() {
 					@Override
 					public void completed(final SimpleHttpResponse response) {
 						logger.info(request + " -> " + new StatusLine(response));
