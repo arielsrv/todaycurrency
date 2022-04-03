@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class AppModule extends AbstractModule {
 
-	private static final Pattern REST_CLIENT_PATTERN = Pattern.compile("rest\\.client\\.([-_\\w]+)\\..*");
+	public static final Pattern REST_CLIENT_PATTERN = Pattern.compile("rest\\.client\\.([-_\\w]+)\\..*");
 
 	private final Set<Class<?>> classes;
 

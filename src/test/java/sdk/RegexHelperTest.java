@@ -1,6 +1,7 @@
 package sdk;
 
 import com.google.common.base.Strings;
+import com.sdk.AppModule;
 import com.sdk.RegexHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class RegexHelperTest {
 
 	@BeforeEach
 	public void setUp() {
-		this.pattern = Pattern.compile("rest\\.client\\.([-_\\w]+)\\..*");
+		this.pattern = AppModule.REST_CLIENT_PATTERN;
 	}
 
 	@Test

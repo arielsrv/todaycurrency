@@ -83,7 +83,8 @@ jacocoTestReport { // ./gradlew test jacocoTestReport from CLI
                     '**/todaycurrency/Program.*',
                     '**/todaycurrency/Application.*',
                     '**/sdk/ObjectMapperProvider.*',
-                    '**/sdk/SparkWebServer.*'
+                    '**/sdk/SparkWebServer.*',
+                    '**/sdk/ApiApplication.*'
             ])
         }))
     }

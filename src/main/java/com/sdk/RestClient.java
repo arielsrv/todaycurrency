@@ -77,8 +77,8 @@ public class RestClient {
 					}
 
 					@Override
-					public void failed(final Exception ex) {
-						logger.error(request + " -> " + ex);
+					public void failed(final Exception e) {
+						logger.error(request + " -> " + e);
 					}
 
 					@Override
@@ -88,11 +88,15 @@ public class RestClient {
 				});
 
 			return Observable.fromFuture(future)
-				.map(simpleHttpResponse -> {
-					T value = this.objectMapper.readValue(simpleHttpResponse.getBodyBytes(), clazz);
-					Response<T> result = new Response<>();
-					result.data = value;
-					return result;
+				.flatMap(simpleHttpResponse -> {
+					try {
+						T value = this.objectMapper.readValue(simpleHttpResponse.getBodyBytes(), clazz);
+						Response<T> result = new Response<>();
+						result.data = value;
+						return Observable.just(result);
+					} catch (Throwable throwable) {
+						return Observable.error(throwable);
+					}
 				})
 				.subscribeOn(Schedulers.io())
 				.onErrorResumeNext(this::mapError);
