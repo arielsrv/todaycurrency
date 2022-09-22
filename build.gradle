@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     implementation 'com.sparkjava:spark-core:2.9.4'
-    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '2.0.1'
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '2.0.2'
     implementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.4'
