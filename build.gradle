@@ -2,8 +2,8 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id 'application'
-    id 'com.github.ben-manes.versions' version '0.46.0'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.github.ben-manes.versions' version '0.47.0'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group 'com.todaycurrency'
@@ -29,21 +29,21 @@ repositories {
 dependencies {
     implementation 'com.sparkjava:spark-core:2.9.4'
     implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '2.0.7'
-    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
+    implementation group: 'com.google.inject', name: 'guice', version: '7.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.14.2'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
-    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.14.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.14.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
     implementation 'org.apache.httpcomponents.client5:httpclient5-fluent:5.2.1'
     implementation 'com.netflix.archaius:archaius-core:0.7.7'
     implementation 'commons-configuration:commons-configuration:1.10'
-    implementation 'org.apache.curator:curator-framework:5.4.0'
-    implementation group: 'com.newrelic.agent.java', name: 'newrelic-api', version: '8.0.1'
-    testImplementation "org.mockito:mockito-core:5.2.0"
+    implementation 'org.apache.curator:curator-framework:5.5.0'
+    implementation group: 'com.newrelic.agent.java', name: 'newrelic-api', version: '8.3.0'
+    testImplementation "org.mockito:mockito-core:5.3.1"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 }
@@ -72,8 +72,6 @@ jacocoTestReport { // ./gradlew test jacocoTestReport from CLI
     dependsOn test // tests are required to run before generating the report
     group = "Reporting"
     reports {
-        xml.enabled(true) // needed for coverage
-        csv.enabled(true)
         html.destination file("${buildDir}/reports/coverage")
     }
 
