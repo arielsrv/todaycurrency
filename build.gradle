@@ -8,7 +8,7 @@ plugins {
 
 group 'com.todaycurrency'
 version '1.0-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 application {
     mainClass = 'com.todaycurrency.Program'
@@ -64,7 +64,7 @@ test {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.9"
     reportsDirectory = file("$buildDir/reports/jacoco")
 }
 
