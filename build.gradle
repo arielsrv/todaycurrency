@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.netflix.archaius:archaius-core:0.7.7'
     implementation 'commons-configuration:commons-configuration:1.10'
     implementation 'org.apache.curator:curator-framework:5.5.0'
-    implementation group: 'com.newrelic.agent.java', name: 'newrelic-api', version: '8.6.0'
+    implementation group: 'com.newrelic.agent.java', name: 'newrelic-api', version: '8.8.0'
     testImplementation "org.mockito:mockito-core:5.7.0"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
