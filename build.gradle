@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.3'
     implementation 'org.apache.httpcomponents.client5:httpclient5-fluent:5.3'
-    implementation 'com.netflix.archaius:archaius-core:0.7.7'
+    implementation 'com.netflix.archaius:archaius-core:0.7.8'
     implementation 'commons-configuration:commons-configuration:1.10'
     implementation 'org.apache.curator:curator-framework:5.5.0'
     implementation group: 'com.newrelic.agent.java', name: 'newrelic-api', version: '8.8.0'
