@@ -41,8 +41,6 @@ public class ApiHandlerTest {
 	@Test
 	public void get_invalid_result() throws Exception {
 		ApiHandler apiHandler = new ApiHandler();
-		assertThrows(Exception.class, () -> {
-			apiHandler.invoke("anotherController", "getCurrency", request).blockingFirst();
-		});
+		assertThrows(Exception.class, () -> apiHandler.invoke("anotherController", "getCurrency", request).blockingFirst());
 	}
 }
