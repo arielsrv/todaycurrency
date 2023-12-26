@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id 'application'
-    id 'com.github.ben-manes.versions' version '0.49.0'
+    id 'com.github.ben-manes.versions' version '0.50.0'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
@@ -31,21 +31,21 @@ dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '2.0.9'
     implementation group: 'com.google.inject', name: 'guice', version: '7.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
-    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
-    implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
-    implementation 'org.apache.httpcomponents.client5:httpclient5-fluent:5.2.1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.16.1'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.16.1'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.3'
+    implementation 'org.apache.httpcomponents.client5:httpclient5-fluent:5.3'
     implementation 'com.netflix.archaius:archaius-core:0.7.7'
     implementation 'commons-configuration:commons-configuration:1.10'
     implementation 'org.apache.curator:curator-framework:5.5.0'
-    implementation group: 'com.newrelic.agent.java', name: 'newrelic-api', version: '8.6.0'
-    testImplementation "org.mockito:mockito-core:5.7.0"
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    implementation group: 'com.newrelic.agent.java', name: 'newrelic-api', version: '8.8.0'
+    testImplementation "org.mockito:mockito-core:5.8.0"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
 }
 
 tasks.withType(JavaCompile) {
@@ -64,7 +64,7 @@ test {
 }
 
 jacoco {
-    toolVersion = "0.8.9"
+    toolVersion = "0.8.10"
     reportsDirectory = file("$buildDir/reports/jacoco")
 }
 
